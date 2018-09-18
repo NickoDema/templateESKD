@@ -1,42 +1,88 @@
 \documentclass[utf8, russian, hpadding=5mm, vpadding=15mm, floatsection, columnxxvi, columnxxxi, columnxxxii, equationsection, pointsection, footnoteasterisk]{eskdtext}
 
-% подключение дополнительных пакетов
-\usepackage{amsfonts, amsmath, amssymb}
-\graphicspath{{./images/}{./extra_pdf_pages/}}
-\usepackage{wallpaper}
+\usepackage{ucs}							%хз
+\usepackage{cmap}						%решение трабла с крокозябрами в pdf
 
-% добавление гиперссылок и настройка цветов для них
+\usepackage[normalem]{ulem}
+
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{indentfirst}
+
+\usepackage{nameref}
 \usepackage{hyperref}
 \hypersetup{
+    linktoc=all,
     pdftex,
     unicode=true,
     colorlinks=true,
     linkcolor=blue,
     citecolor=red,
     urlcolor=green,
-    linktocpage=true,
+    %linktocpage=true,
     pdfhighlight=/N
 }
 
+% подключение дополнительных пакетов
+\usepackage{amsfonts, amsmath, amssymb, mathtext}
+\newcommand{\No}{\textnumero}
+
+\graphicspath{{./pics/}{./images/}{./pictures/}}
+\usepackage{wallpaper}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\squpp}{\vspace{-4mm}}
+\newcommand{\squp}{\vspace{-2mm}}
+\newcommand{\sqdownn}{\vspace{2mm}}
+\newcommand{\sqdown}{\vspace{1mm}}
+
+\newcommand{\squeezeup}{\vspace{-4mm}}
+\newcommand{\squeezeeup}{\vspace{-2mm}}
+\newcommand{\squeezeedown}{\vspace{2mm}}
+\newcommand{\squeezeeedown}{\vspace{1mm}}
+
+%\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cfttoctitlefont}{\hspace{7cm}\Large\bfseries}	%KOSTIL'
+%\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftdot}{.}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
+\makeatletter
+\g@addto@macro\cftsecfont{\bfseries}
+\g@addto@macro\cftsubsecfont{\bfseries}
+\g@addto@macro\cftsubsubsecfont{\bfseries}
+\g@addto@macro\cftparafont{\bfseries}
+\g@addto@macro\cftsubparafont{\bfseries}
+\g@addto@macro\cftsubparafont{\bfseries}
+\g@addto@macro\cftfigfont{\bfseries}
+\g@addto@macro\cfttabfont{\bfseries}
+
+\g@addto@macro\cftsecpagefont{\bfseries}
+\g@addto@macro\cftsubsecpagefont{\bfseries}
+\g@addto@macro\cftsubsubsecpagefont{\bfseries}
+\g@addto@macro\cftparapagefont{\bfseries} 
+\g@addto@macro\cftsubparapagefont{\bfseries}
+\g@addto@macro\cftfigpagefont{\bfseries}
+\g@addto@macro\cfttabpagefont{\bfseries}
+\makeatother
+
+
 % стиль оформления ссылок на источники
 \bibliographystyle{ugost2008}
-
-% без определения что-то не работает
-\newcommand{\No}{\textnumero}
 
 % Для определения форматирования нумерации элементов списка литературы
 \makeatletter
 \renewcommand{\@biblabel}[1]{#1}
 \makeatother
 
-% для штампа
 \ESKDtitle{{\Large Название работы}\\ \small Пояснительная записка}
 \ESKDsignature{КСУИ.102.4135.001 ПЗ}
-\ESKDgroup{\footnotesize Университет ИТМО\\Кафедра СУиИ\\гр.~P4135}
-\ESKDauthor{\resizebox{2.22cm}{\height}{Фамилия И.О.}}
-\ESKDchecker{Фамилия И.О.}
-\ESKDnormContr{\resizebox{2.22cm}{\height}{Фамилия И.О.}}
-\ESKDapprovedBy{Фамилия И.О.}
+\ESKDgroup{\footnotesize Университет ИТМО\\Кафедра СУиИ\\гр.~R4235}
+\ESKDauthor{\resizebox{2.22cm}{\height}{Ватрушкин Н. Ю.}}
+%\ESKDchecker{}
+%\ESKDnormContr{\resizebox{2.22cm}{\height}{}}
+%\ESKDapprovedBy{}
 
 % оступы от заголовков разделов и подразделов
 \ESKDsectSkip{section}{7mm}{7mm}
@@ -44,18 +90,28 @@
 \ESKDsectSkip{subsubsection}{3mm}{3mm}
 
 
-% подключение частей документа
 \begin{document}
-    \addtocounter{page}{0} % если в документ будут вставлены иные страницы (ТЗ и проч.)
-    \input{title_pages}
+    \addtocounter{page}{0}
+    %\input{title_pages}
     \ESKDthisStyle{formII}
-    \tableofcontents
+    \renewcommand{\cftaftertoctitle}{\thispagestyle{empty}}
+
+	\begingroup
+		\hypersetup{linkcolor=black}
+		\tableofcontents
+	\endgroup    
+    
     \newpage
     \topmargin = 0 mm
+    
+    % ---------------------------------    
     \input{introduction}
     \input{section_1}
     \input{conclusion}
+    
     \renewcommand\refname{Список использованных источников}
-    \bibliography{used_books}
+    \input{bib}
+
     \input{appendix_1}
+    
 \end{document}
